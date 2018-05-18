@@ -1,4 +1,4 @@
-FROM quartus-base:latest
+FROM quartus-base:0.1
 MAINTAINER Todd Riffel <todd.e.riffel@gmail.com>
 
 USER root
@@ -27,16 +27,9 @@ USER root
 RUN rm -rf /tmp/* /home/builder/intelFPGA/16.1/uninstall && \
     apt-get clean
 
-# These files conflict with the ubuntu versions and cause random segfaults
-RUN rm /opt/altera/quartus/linux64/libccl_curl_drl.so \
-    /opt/altera/quartus/linux64/libcrypto.so.1.0.0 \
-    /opt/altera/quartus/linux64/libcurl.so.4 \
-    /opt/altera/quartus/linux64/libssl.so.1.0.0
-
 USER builder
 
 
 # Just the command line, but once you've built it, you can open the project in the GUI if you want to do things like look at the floorplan.
 #
 # EDIT: running the container with "-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY" gets enough X11 to run the GUI.
-# 
